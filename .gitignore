@@ -4,6 +4,9 @@
 *.dll
 *.so
 *.dylib
+pkg
+src/github.com
+bin
 
 # Test binary, built with `go test -c`
 *.test
@@ -13,3 +16,7 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# 描述文本, Log
+*.txt
+*.log
