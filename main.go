@@ -34,7 +34,7 @@ func showVersion(w http.ResponseWriter, req *http.Request) {
 	req.Body.Read(body)
 	// reqParams := ReqParams{req.URL, req.Host}
 	fmt.Fprintln(w, info, string(body)) //, reqParams)
-	writeLog(info, "./task_server.log")
+	writeLog(info, "./log_task_server.log")
 	for name, headers := range req.Header {
 		for _, h := range headers {
 			fmt.Fprintf(w, "%v: %v\n", name, h)
