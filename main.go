@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strings"
+
+	"example.com/gravity"
 )
 
 var PORT = ":8000"
@@ -17,6 +20,12 @@ type ReqParams struct {
 func main() {
 	http.HandleFunc("/", showVersion)
 
+	errGravity := gravity.Engine()
+	if errGravity == nil {
+		log.Println("重力, 已经启动.")
+	} else {
+		log.Println("重力, 启动失败.")
+	}
 	fmt.Println("Server running bind port", PORT)
 	http.ListenAndServe(PORT, nil)
 }
