@@ -20,3 +20,6 @@ bin
 # 描述文本, Log
 *.txt
 *.log
+
+# 可执行文件
+snowflakes
