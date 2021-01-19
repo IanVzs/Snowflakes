@@ -43,7 +43,7 @@ func save2DB(listData [] RssListItem) error {
 		data := listData[i]
 		str_data, _ := json.Marshal(data)
 		log.Printf("正在请求写入: %s", string(str_data))
-		_, err := helpers.Post("http://127.0.0.1:5481/rss/gogogo", "json", str_data)
+		_, err := helpers.Post("http://127.0.0.1:5481/rss/save_details", "json", str_data)
 		if err != nil {
 			log.Println("save2DB|faild: ", data.Description)
 			return err
@@ -86,7 +86,7 @@ func getRssList(skip int, limit int) ([]RssListItem, error) {
 	// 获取RSS列表
 	var data []RssListItem
 	log.Printf("获取Rss列表")
-	body, err := helpers.Get("http://127.0.0.1:5481/rss/?skip=0&limit=100")
+	body, err := helpers.Get("http://127.0.0.1:5481/list_title?skip=0&limit=100")
 	log.Println("请问有运行到这里吗？")
 	if err == nil {
 		err = json.Unmarshal(body, &data)
