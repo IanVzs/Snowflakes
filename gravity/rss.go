@@ -5,15 +5,15 @@ import (
 	"log"
 
 	"encoding/json"
-	"example.com/helpers"
+
+	"github.com/IanVzs/Snowflakes/helpers"
 )
 
-
-type RssListItem struct{
-    Url string `json:"url"`
-    Description string `json:"description"`
-    Srtdesc string `json:"srtdesc"`
-    Articles []string `json:"articles"`
+type RssListItem struct {
+	Url         string   `json:"url"`
+	Description string   `json:"description"`
+	Srtdesc     string   `json:"srtdesc"`
+	Articles    []string `json:"articles"`
 }
 
 func getFromUrl() error {
@@ -37,9 +37,9 @@ func getRssSum() int {
 	return 100
 }
 
-func save2DB(listData [] RssListItem) error {
+func save2DB(listData []RssListItem) error {
 	// 循环列表,从中获取url,拉取数据,保存入库
-	for i:=0; i<len(listData); i++ {
+	for i := 0; i < len(listData); i++ {
 		data := listData[i]
 		str_data, _ := json.Marshal(data)
 		log.Printf("正在请求写入: %s", string(str_data))
@@ -60,8 +60,8 @@ func getRss(msg chan int) {
 	log.Printf("获取Rss")
 	num_all := getRssSum()
 	if num_all > 100 {
-		loop_num := num_all/100
-		for i:=0; i < loop_num; i++{
+		loop_num := num_all / 100
+		for i := 0; i < loop_num; i++ {
 			listData, err := getRssList(i*100, i*100+100)
 			if err == nil {
 				err = save2DB(listData)
