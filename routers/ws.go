@@ -11,34 +11,8 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-// websocket echo demo
-func WsEcho(c *gin.Context) {
-	// 获取链接,允许跨域
-	conn, error := (&websocket.Upgrader{
-		CheckOrigin: func(r *http.Request) bool { return true }}).Upgrade(c.Writer, c.Request, nil)
-	if error != nil {
-		http.NotFound(c.Writer, c.Request)
-		return
-	}
-	defer conn.Close()
-
-	// websocket connect
-	for {
-		mtye, message, err := conn.ReadMessage()
-		if err != nil {
-			logging.Errorf("ws conn.ReadMessage(mtye: %d): %s, ", err, mtye)
-		}
-		logging.Debugf("recv(%d): %s", mtye, message)
-		err = conn.WriteMessage(mtye, message)
-		if err != nil {
-			logging.Errorf("ws conn.WriteMessage: %s", err)
-			break
-		}
-	}
-}
-
 // WsPage is a websocket handler
-func WsPage(c *gin.Context) {
+func WsEcho(c *gin.Context) {
 	// change the reqest to websocket model
 	conn, error := (&websocket.Upgrader{
 		CheckOrigin: func(r *http.Request) bool { return true }}).Upgrade(c.Writer, c.Request, nil)
@@ -47,11 +21,36 @@ func WsPage(c *gin.Context) {
 		return
 	}
 	// websocket connect
-	client := &ws.Client{ID: uuid.NewV4().String(), Socket: conn, Send: make(chan []byte)}
+	client := &ws.EchoClient{ID: uuid.NewV4().String(), Socket: conn, Send: make(chan []byte)}
 
 	logging.Infof("New Client Conn: %s", client.ID)
 	ws.Manager.Register <- client
 
 	go client.Read()
 	go client.Write()
+	logging.Infof("New Client Done: %s", client.ID)
+}
+
+// Chat is a websocket chat handler
+func Chat(c *gin.Context) {
+	var hub *ws.Hub
+	var ok bool
+	chatID := c.Query("chat_id")
+	if chatID != "" {
+		conn, error := (&websocket.Upgrader{
+			CheckOrigin: func(r *http.Request) bool { return true }}).Upgrade(c.Writer, c.Request, nil)
+		if error != nil {
+			http.NotFound(c.Writer, c.Request)
+			return
+		}
+		if hub, ok = ws.HManager.Hubs[chatID]; !ok {
+			hub = ws.NewHub(chatID)
+			logging.Infof("first in chatID： %s", chatID)
+		} else {
+			logging.Infof("join in chatID： %s", chatID)
+		}
+		ws.ServeWs(hub, conn)
+	} else {
+		return
+	}
 }
