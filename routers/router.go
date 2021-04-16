@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 
 	_ "github.com/IanVzs/Snowflakes/docs"
-	"github.com/IanVzs/Snowflakes/pkg/logging"
-	"github.com/IanVzs/Snowflakes/pkg/setting"
+	"github.com/IanVzs/Snowflakes/pkgs/logging"
+	"github.com/IanVzs/Snowflakes/pkgs/setting"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 

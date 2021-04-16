@@ -6,10 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/unknwon/com"
 
-	"github.com/IanVzs/Snowflakes/pkg/app"
-	"github.com/IanVzs/Snowflakes/pkg/e"
-	"github.com/IanVzs/Snowflakes/pkg/setting"
-	"github.com/IanVzs/Snowflakes/pkg/util"
+	"github.com/IanVzs/Snowflakes/pkgs/app"
+	"github.com/IanVzs/Snowflakes/pkgs/e"
+	"github.com/IanVzs/Snowflakes/pkgs/setting"
+	"github.com/IanVzs/Snowflakes/pkgs/util"
 	"github.com/IanVzs/Snowflakes/service/test_service"
 )
 

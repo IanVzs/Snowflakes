@@ -9,7 +9,7 @@ package ws
 import (
 	"encoding/json"
 
-	"github.com/IanVzs/Snowflakes/pkg/logging"
+	"github.com/IanVzs/Snowflakes/pkgs/logging"
 	"github.com/gorilla/websocket"
 )
 

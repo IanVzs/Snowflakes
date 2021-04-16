@@ -3,7 +3,7 @@ package routers
 import (
 	"net/http"
 
-	"github.com/IanVzs/Snowflakes/pkg/logging"
+	"github.com/IanVzs/Snowflakes/pkgs/logging"
 	ws "github.com/IanVzs/Snowflakes/service/ws_service"
 
 	"github.com/gin-gonic/gin"

@@ -14,4 +14,6 @@ require (
 	github.com/swaggo/swag v1.7.0
 	github.com/unknwon/com v1.0.1
 	go.uber.org/zap v1.16.0
+	gopkg.in/ini.v1 v1.62.0 // indirect
+	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 )
