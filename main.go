@@ -2,50 +2,37 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
-	"os"
-	"strings"
+	"time"
+
+	"github.com/gin-gonic/gin"
+
+	_ "github.com/IanVzs/Snowflakes/pkgs/logging"
+	"github.com/IanVzs/Snowflakes/pkgs/setting"
+	_ "github.com/IanVzs/Snowflakes/pkgs/setting"
+	_ "github.com/IanVzs/Snowflakes/pkgs/util"
+	"github.com/IanVzs/Snowflakes/routers"
+	_ "github.com/IanVzs/Snowflakes/services/ws_service"
 )
 
-var PORT = ":8000"
-
-type ReqParams struct {
-	url  string
-	host string
-}
-
 func main() {
-	http.HandleFunc("/", showVersion)
 
-	fmt.Println("Server running bind port", PORT)
-	http.ListenAndServe(PORT, nil)
-}
+	gin.SetMode(setting.ServerSetting.RunMode)
 
-func showVersion(w http.ResponseWriter, req *http.Request) {
-	// 返回hello
-	fmt.Fprintf(w, "Server Version: 0.01\n\n\n\n")
-	fmt.Fprintf(w, "Your Req Header is:\n\n")
+	routersInit := routers.InitRouter()
+	readTimeout := setting.ServerSetting.ReadTimeout
+	writeTimeout := setting.ServerSetting.WriteTimeout
+	endPoint := fmt.Sprintf(":%d", setting.ServerSetting.HttpPort)
 
-	info := fmt.Sprintln("URL", req.URL, "HOST", req.Host, "Method", req.Method, "RequestURL", req.RequestURI, "RawQuery", req.URL.RawQuery)
-	fmt.Fprintln(w, info)
-
-	len_body := req.ContentLength
-	body := make([]byte, len_body)
-	req.Body.Read(body)
-	// reqParams := ReqParams{req.URL, req.Host}
-	fmt.Fprintln(w, info, string(body)) //, reqParams)
-	writeLog(info, "./log_task_server.log")
-	for name, headers := range req.Header {
-		for _, h := range headers {
-			fmt.Fprintf(w, "%v: %v\n", name, h)
-		}
+	s := &http.Server{
+		Addr:           endPoint,
+		Handler:        routersInit,
+		ReadTimeout:    readTimeout * time.Second,
+		WriteTimeout:   writeTimeout * time.Second,
+		MaxHeaderBytes: 1 << 20,
 	}
-}
 
-func writeLog(msg string, logPath string) {
-	fd, _ := os.OpenFile(logPath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
-	defer fd.Close()
-	content := strings.Join([]string{msg, "\r\n"}, "")
-	buf := []byte(content)
-	fd.Write(buf)
+	log.Printf("[info] start http server listening %s", endPoint)
+	s.ListenAndServe()
 }
