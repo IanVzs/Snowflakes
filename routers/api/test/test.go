@@ -10,7 +10,7 @@ import (
 	"github.com/IanVzs/Snowflakes/pkgs/e"
 	"github.com/IanVzs/Snowflakes/pkgs/setting"
 	"github.com/IanVzs/Snowflakes/pkgs/util"
-	"github.com/IanVzs/Snowflakes/service/test_service"
+	"github.com/IanVzs/Snowflakes/services/test_service"
 )
 
 // @Summary Get multiple article tags

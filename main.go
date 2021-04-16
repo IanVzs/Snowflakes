@@ -13,7 +13,7 @@ import (
 	_ "github.com/IanVzs/Snowflakes/pkgs/setting"
 	_ "github.com/IanVzs/Snowflakes/pkgs/util"
 	"github.com/IanVzs/Snowflakes/routers"
-	_ "github.com/IanVzs/Snowflakes/service/ws_service"
+	_ "github.com/IanVzs/Snowflakes/services/ws_service"
 )
 
 func main() {

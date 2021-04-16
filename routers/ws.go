@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/IanVzs/Snowflakes/pkgs/logging"
-	ws "github.com/IanVzs/Snowflakes/service/ws_service"
+	ws "github.com/IanVzs/Snowflakes/services/ws_service"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
