@@ -23,7 +23,7 @@ import (
 // It receives:
 //   1. A time package format string (e.g. time.RFC3339).
 //   2. A boolean stating whether to use UTC time zone or local.
-func Ginzap(logger *zap.SugaredLogger, timeFormat string, utc bool) gin.HandlerFunc {
+func Ginzap(logger *zap.Logger, timeFormat string, utc bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		start := time.Now()
 		// some evil middlewares modify this values
@@ -62,7 +62,7 @@ func Ginzap(logger *zap.SugaredLogger, timeFormat string, utc bool) gin.HandlerF
 // All errors are logged using zap.Error().
 // stack means whether output the stack info.
 // The stack info is easy to find where the error occurs but the stack info is too large.
-func RecoveryWithZap(logger *zap.SugaredLogger, stack bool) gin.HandlerFunc {
+func RecoveryWithZap(logger *zap.Logger, stack bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		defer func() {
 			if err := recover(); err != nil {
@@ -168,6 +168,7 @@ func Panicf(template string, args ...interface{}) {
 
 // 全局变量
 var Logger *zap.SugaredLogger
+var AppLogger *zap.Logger
 
 // 日志级别
 var levelMap = map[string]zapcore.Level{
@@ -224,5 +225,6 @@ func init() {
 	}
 
 	core := zapcore.NewTee(allCore...)
-	Logger = zap.New(core, zap.AddCaller(), zap.AddCallerSkip(1)).Sugar()
+	AppLogger = zap.New(core, zap.AddCaller(), zap.AddCallerSkip(1))
+	Logger = AppLogger.Sugar()
 }

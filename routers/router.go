@@ -21,8 +21,9 @@ func InitRouter() *gin.Engine {
 		r.Use(gin.Logger())
 		r.Use(gin.Recovery())
 	} else {
-		r.Use(logging.Ginzap(logging.Logger, time.RFC3339, true))
-		r.Use(logging.RecoveryWithZap(logging.Logger, true))
+		gin.DisableConsoleColor()
+		r.Use(logging.Ginzap(logging.AppLogger, time.RFC3339, true))
+		r.Use(logging.RecoveryWithZap(logging.AppLogger, true))
 	}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
