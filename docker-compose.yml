@@ -1,0 +1,32 @@
+version: "2.2"
+services:
+  redis:
+    image: "redis"
+    container_name: snow_redis # 容器名
+
+    command: redis-server --appendonly yes #一个容器启动时要运行的命令
+    restart: always # 自动重启
+  mysql:
+    image: "mysql:5.7"
+    container_name: snow_mysql
+    environment:
+      MYSQL_DATABASE: "snow"            # 与配置文件中的数据库名称保持一致，如果不指定，后端容器连接数据库会出错。
+      MYSQL_ROOT_PASSWORD: "qwer1234"   # mysql 的密码
+      MYSQL_USER: "root"
+
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci  # 设置数据库字符集
+    restart: always # 自动重启
+
+  snowflakes:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    depends_on:
+      - snow_redis
+      - snow_mysql
+#    ports:
+#      - 8033
+    restart: always
+    links:
+      - redis:snow_redis  # 做映射，配置文件中使用的名称是 redis，此处应该将代码中的 redis 与 容器做关联
+      - mysql:snow_mysql  # 同上
