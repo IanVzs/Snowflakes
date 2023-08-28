@@ -4,13 +4,12 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 
-	_ "github.com/IanVzs/Snowflakes/docs"
 	"github.com/IanVzs/Snowflakes/pkgs/logging"
 	"github.com/IanVzs/Snowflakes/pkgs/setting"
-	ginSwagger "github.com/swaggo/gin-swagger"
-	"github.com/swaggo/gin-swagger/swaggerFiles"
-
+	_ "github.com/IanVzs/Snowflakes/docs"
 	test "github.com/IanVzs/Snowflakes/routers/api/test"
 )
 
@@ -26,7 +25,7 @@ func InitRouter() *gin.Engine {
 		r.Use(logging.RecoveryWithZap(logging.AppLogger, true))
 	}
 
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	// test ws can use
 	/*curl --include --no-buffer --header "Connection: Upgrade" --header "Upgrade: websocket" --header "Host: 127.0.0.1:8000"  --header "Sec-WebSocket-Key: zVM4LLeZBgoAzNyTtkEjxGVbUEk="  --header "Sec-WebSocket-Version: 13" http://127.0.0.1:8000/ws*/
 	r.GET("/ws", WsEcho)

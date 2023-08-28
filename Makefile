@@ -18,6 +18,10 @@ lint:
 	golint ./...
 tool:
 	$(GoTool) vet . |& grep -v vendor; true
+swag:
+	swag init
+install_swag:
+	go install github.com/swaggo/swag/cmd/swag@latest
 clean:
 	$(GOCLEAN) -i .
 	rm -f $(BINARY_NAME)
