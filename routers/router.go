@@ -31,12 +31,12 @@ func InitRouter() *gin.Engine {
 	/*curl --include --no-buffer --header "Connection: Upgrade" --header "Upgrade: websocket" --header "Host: 127.0.0.1:8000"  --header "Sec-WebSocket-Key: zVM4LLeZBgoAzNyTtkEjxGVbUEk="  --header "Sec-WebSocket-Version: 13" http://127.0.0.1:8000/ws*/
 	r.GET("/ws", WsEcho)
 	r.GET("/ws_chat", Chat)
-	apiv1 := r.Group("/api/v1")
-	// apiv1.Use(jwt.JWT())
+	apiStage := r.Group("/api/stage-api")
+	// apiStage.Use(jwt.JWT())
 	{
 		//获取标签列表
-		apiv1.GET("/tags", test.GoTest)
-		apiv1.GET("/qa", api.QA)
+		apiStage.GET("/tags", test.GoTest)
+		apiStage.POST("/qa", api.QA)
 	}
 
 	return r

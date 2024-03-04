@@ -4,7 +4,46 @@
         "contact": {}
     },
     "paths": {
-        "/api/v1/tags": {
+        "/api/stage-api/qa": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "QA"
+                ],
+                "summary": "Answer a question",
+                "parameters": [
+                    {
+                        "description": "Question to be answered",
+                        "name": "question",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LLMRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/stage-api/tags": {
             "get": {
                 "produces": [
                     "application/json"
@@ -50,6 +89,14 @@
                 },
                 "data": {},
                 "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.LLMRequest": {
+            "type": "object",
+            "properties": {
+                "content": {
                     "type": "string"
                 }
             }

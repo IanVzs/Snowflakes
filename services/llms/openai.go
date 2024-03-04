@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/IanVzs/Snowflakes/models"
+	"github.com/IanVzs/Snowflakes/pkgs/logging"
 	"github.com/gorilla/websocket"
 )
 
@@ -18,6 +19,11 @@ const (
 	openaiAPIToken = "sk-xeWlzTZVhH5RnemyB3Cd02F7F2044235Ae0eB2250276F07e" // 替换为你的OpenAI API密钥
 	streamEndpoint = "wss://api.openai.com/stream"                         // 流式接口
 )
+
+func QAOpenAITest(content string) string {
+	logging.Debug("QA输入, Q: " + content)
+	return "hi"
+}
 
 func QAOpenAI(content string) string {
 	// 构建请求体

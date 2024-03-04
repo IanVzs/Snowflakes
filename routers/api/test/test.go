@@ -19,7 +19,7 @@ import (
 // @Param state query int false "State"
 // @Success 200 {object} app.Response
 // @Failure 500 {object} app.Response
-// @Router /api/v1/tags [get]
+// @Router /api/stage-api/tags [get]
 func GoTest(c *gin.Context) {
 	appG := app.Gin{C: c}
 	name := c.Query("name")

@@ -7,10 +7,40 @@ definitions:
       msg:
         type: string
     type: object
+  models.LLMRequest:
+    properties:
+      content:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
-  /api/v1/tags:
+  /api/stage-api/qa:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Question to be answered
+        in: body
+        name: question
+        required: true
+        schema:
+          $ref: '#/definitions/models.LLMRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: Answer a question
+      tags:
+      - QA
+  /api/stage-api/tags:
     get:
       parameters:
       - description: Name
