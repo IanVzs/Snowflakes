@@ -15,7 +15,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /api/stage-api/qa:
+  /api/v1/qa:
     post:
       consumes:
       - application/json
@@ -40,7 +40,7 @@ paths:
       summary: Answer a question
       tags:
       - QA
-  /api/stage-api/tags:
+  /api/v1/tags:
     get:
       parameters:
       - description: Name

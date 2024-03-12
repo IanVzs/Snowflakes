@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/stage-api/qa": {
+        "/api/v1/qa": {
             "post": {
                 "consumes": [
                     "application/json"
@@ -54,7 +54,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/stage-api/tags": {
+        "/api/v1/tags": {
             "get": {
                 "produces": [
                     "application/json"

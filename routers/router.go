@@ -31,7 +31,7 @@ func InitRouter() *gin.Engine {
 	/*curl --include --no-buffer --header "Connection: Upgrade" --header "Upgrade: websocket" --header "Host: 127.0.0.1:8000"  --header "Sec-WebSocket-Key: zVM4LLeZBgoAzNyTtkEjxGVbUEk="  --header "Sec-WebSocket-Version: 13" http://127.0.0.1:8000/ws*/
 	r.GET("/ws", WsEcho)
 	r.GET("/ws_chat", Chat)
-	apiStage := r.Group("/api/stage-api")
+	apiStage := r.Group("/api/v1")
 	// apiStage.Use(jwt.JWT())
 	{
 		//获取标签列表

@@ -18,7 +18,7 @@ import (
 // @Param question body models.LLMRequest true "Question to be answered"
 // @Success 200 {object} app.Response
 // @Failure 500 {object} app.Response
-// @Router /api/stage-api/qa [post]
+// @Router /api/v1/qa [post]
 func QA(c *gin.Context) {
 	// 构建请求体
 	var reqBody models.LLMRequest

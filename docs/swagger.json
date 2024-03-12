@@ -4,7 +4,7 @@
         "contact": {}
     },
     "paths": {
-        "/api/stage-api/qa": {
+        "/api/v1/qa": {
             "post": {
                 "consumes": [
                     "application/json"
@@ -43,7 +43,7 @@
                 }
             }
         },
-        "/api/stage-api/tags": {
+        "/api/v1/tags": {
             "get": {
                 "produces": [
                     "application/json"
